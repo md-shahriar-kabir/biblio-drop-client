@@ -23,7 +23,6 @@ import {
   FiX,
 } from "react-icons/fi";
 
-import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import SidebarSkeleton from "../Loading/SidebarSkeleton";
 
@@ -125,15 +124,8 @@ const DashboardSidebar = () => {
           href="/dashboard"
           className="relative block w-[140px] h-[34px] select-none"
         >
-          {/* <Image
-            src="/BookDrop-white.png"
-            alt="BookDrop Logo"
-            fill
-            className="object-contain "
-            priority
-          /> */}
           <span className="font-bold text-xl tracking-tight text-[#fdfeff]">
-            Biblio<span className="text-[#7C3AED]">Drop</span>
+           📚 Biblio<span className="text-[#7C3AED]">Drop</span>
           </span>
         </Link>
         <Button
@@ -169,14 +161,6 @@ const DashboardSidebar = () => {
               href="/"
               className="relative block w-[160px] h-[40px] select-none"
             >
-              {/* <Image
-                src="/BookDrop-white.png"
-                alt="BookDrop Logo"
-                fill
-                sizes="180px"
-                className="object-contain"
-                priority
-              /> */}
               <span className="font-bold text-xl tracking-tight text-[#fdfeff]">
               📚 Biblio<span className="text-[#7C3AED]">Drop</span>
             </span>
@@ -256,16 +240,6 @@ const DashboardSidebar = () => {
 
           {/* 4. ACTION INTERACTION BUTTON */}
           <div className="pt-4 flex flex-col gap-3">
-            {/* Primary Button: New Shipment */}
-            <Button
-              className="w-full h-11 bg-[#F46036] hover:bg-[#D34A26] text-white font-bold text-sm rounded-xl transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2"
-              onClick={() => console.log("New Shipment triggered")}
-            >
-              <FiPlus size={18} strokeWidth={2.5} />
-              <span>New Shipment</span>
-            </Button>
-
-            {/* Secondary Button: Profile */}
             <Link href={`/dashboard/profile`}>
               <Button
                 className="w-full h-11 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
