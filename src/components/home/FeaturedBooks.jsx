@@ -7,7 +7,7 @@ const FeaturedBooks = async () => {
   const data = (await getAllBooks());
   
  const allBooks = Array.isArray(data) ? data : (data?.books || []);
-const books = allBooks.filter((book) => book.status === "approved").slice(0, 6);
+const books = allBooks.filter((book) => book.status === "approved").slice(0, 8);
 
   return (
     <section className="py-16 md:py-24 bg-[#F8FAFC]">
