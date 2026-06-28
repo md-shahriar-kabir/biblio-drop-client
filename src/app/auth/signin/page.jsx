@@ -12,7 +12,7 @@ import {
   Button,
 } from "@heroui/react";
 import { motion } from "framer-motion";
-import { FiEye, FiEyeOff, FiTruck, FiTrendingUp, FiBox } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiBook } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
@@ -32,7 +32,6 @@ const SignIn = () => {
       const { data, error } = await authClient.signIn.email({
         ...userData,
       });
-      console.log(data);
 
       if (error) {
         toast.error(error.message || "Invalid credentials. Please try again.");
@@ -41,38 +40,42 @@ const SignIn = () => {
 
       if (data) {
         toast.success("Welcome back! Login successful.");
-
         router.push(`/dashboard/${data?.user?.role}`);
       }
     } catch (err) {
       toast.error("Authentication failed. Please check your connection.");
     }
   };
+
   const GoogleSignIn = async () => {
     await authClient.signIn.social({
       provider: "google",
     });
   };
+
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-[#EAECEF] bg-[radial-gradient(#cdd2d9_1px,transparent_1px)] [background-size:20px_24px] text-slate-900 select-text relative">
+    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-[#F8FAFC] relative text-[#0F172A] select-text overflow-hidden">
+      
+      {/* BACKGROUND DECORATIVE DOTS PATTERN */}
+      <div className="absolute inset-0 bg-[radial-gradient(#7C3AED_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-[0.03]" />
+
       {/* --- LEFT PANEL: THE FLOATING FORM CARD --- */}
-      <div className="w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative bg-transparent">
+      <div className="w-full flex items-center justify-center p-6 sm:p-10 lg:p-16 relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="w-full max-w-[460px] bg-white rounded-2xl border border-gray-100/80 shadow-[0_20px_50px_rgba(13,59,102,0.04)] p-6 sm:p-10 transition-all duration-300"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="w-full max-w-[440px] bg-white rounded-3xl border border-slate-200/60 shadow-[0_20px_40px_rgba(15,23,42,0.04)] p-8 sm:p-10"
         >
-          {/* Top Logo */}
-          <div className="relative w-[140px] h-[36px] mb-8 select-none">
-            <Link href={'/'}>
-            <Image
-              src="/BookDrop.png"
-              alt="BookDrop Logo"
-              fill
-              className="object-contain"
-              priority
-            />
+          {/* Top Navbar Matching Logo Component From image_183040.png */}
+          <div className="mb-10 select-none">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="w-10 h-10 bg-[#F5F3FF] rounded-xl flex items-center justify-center text-[#7C3AED] shadow-sm group-hover:scale-105 transition-transform">
+                <FiBook size={20} strokeWidth={2.5} />
+              </div>
+              <span className="text-2xl font-black text-[#0F172A] tracking-tight">
+                Biblio<span className="text-[#7C3AED]">Drop</span>
+              </span>
             </Link>
           </div>
 
@@ -83,31 +86,26 @@ const SignIn = () => {
           >
             <Fieldset className="w-full space-y-4">
               {/* Header Title Section */}
-              <div className="space-y-1">
-                <Fieldset.Legend className="text-[32px] font-black tracking-tight text-[#0D3B66]">
+              <div className="space-y-1.5">
+                <Fieldset.Legend className="text-3xl font-black tracking-tight text-[#0F172A]">
                   Welcome Back
                 </Fieldset.Legend>
-                <span className="text-[14px] font-semibold text-slate-500 tracking-wide block">
-                  Log in to manage your deliveries and library.
+                <span className="text-xs font-semibold text-slate-400 tracking-wide block leading-relaxed">
+                  Log in to access your library dashboard, request book deliveries, and manage your shelf.
                 </span>
               </div>
 
               {/* Form Input Layout Fields */}
               <div className="space-y-4 w-full pt-2">
                 {/* 1. EMAIL ADDRESS FIELD */}
-                <TextField
-                  className="w-full"
-                  name="email"
-                  type="email"
-                  isRequired
-                >
-                  <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                <TextField className="w-full" name="email" type="email" isRequired>
+                  <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                     Email Address
                   </Label>
-                  <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white">
+                  <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                     <InputGroup.Input
-                      className="bg-transparent px-4 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
-                      placeholder="name@company.com"
+                      className="bg-transparent h-11 px-4 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
+                      placeholder="name@example.com"
                     />
                   </InputGroup>
                   <FieldError className="text-xs font-semibold text-rose-500 mt-1 pl-1" />
@@ -116,35 +114,31 @@ const SignIn = () => {
                 {/* 2. PASSWORD FIELD */}
                 <TextField className="w-full" name="password" isRequired>
                   <div className="flex items-center justify-between mb-1.5 w-full">
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase block">
                       Password
                     </Label>
                     <Link
                       href="#"
-                      className="text-[11px] font-bold text-[#0D3B66] hover:underline"
+                      className="text-[11px] font-bold text-[#7C3AED] hover:text-[#6D28D9] transition-colors hover:underline"
                     >
                       Forgot Password?
                     </Link>
                   </div>
-                  <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white">
+                  <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                     <InputGroup.Input
-                      className="bg-transparent pl-4 pr-1 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
+                      className="bg-transparent h-11 pl-4 pr-1 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
                       type={isVisible ? "text" : "password"}
                       placeholder="••••••••"
                     />
-                    <InputGroup.Suffix className="pr-1.5">
+                    <InputGroup.Suffix className="pr-2">
                       <Button
                         isIconOnly
                         size="sm"
                         variant="light"
-                        className="text-slate-400 hover:text-slate-600 rounded-md min-w-0 p-0 bg-transparent"
+                        className="text-slate-400 hover:text-slate-600 rounded-lg min-w-0 p-0 bg-transparent"
                         onPress={() => setIsVisible(!isVisible)}
                       >
-                        {isVisible ? (
-                          <FiEyeOff size={16} />
-                        ) : (
-                          <FiEye size={16} />
-                        )}
+                        {isVisible ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                       </Button>
                     </InputGroup.Suffix>
                   </InputGroup>
@@ -157,11 +151,11 @@ const SignIn = () => {
                     onChange={() => setRememberMe(!rememberMe)}
                     type="checkbox"
                     id="remember"
-                    className="rounded border-gray-300 text-[#F46036] focus:ring-[#F46036] h-3.5 w-3.5 cursor-pointer"
+                    className="rounded border-slate-300 text-[#7C3AED] focus:ring-[#7C3AED] h-4 w-4 cursor-pointer transition-all"
                   />
                   <label
                     htmlFor="remember"
-                    className="text-xs font-semibold text-slate-500 cursor-pointer leading-tight"
+                    className="text-xs font-bold text-slate-400 cursor-pointer leading-none"
                   >
                     Remember Me
                   </label>
@@ -171,7 +165,7 @@ const SignIn = () => {
               {/* ACTION EXECUTION BUTTON */}
               <Button
                 type="submit"
-                className="w-full py-3 bg-[#F46036] text-white font-bold text-sm rounded-lg shadow-md hover:bg-[#D34A26] transition-all duration-200 flex items-center justify-center uppercase tracking-wider"
+                className="w-full h-11 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-xs rounded-xl shadow-md shadow-[#7C3AED]/10 transition-all duration-200 uppercase tracking-widest"
               >
                 Sign In
               </Button>
@@ -179,12 +173,12 @@ const SignIn = () => {
           </Form>
 
           {/* OR DIVIDER */}
-          <div className="flex items-center my-5 select-none">
-            <div className="flex-grow border-t border-gray-100" />
-            <span className="px-3 text-[11px] font-black text-slate-400 tracking-widest">
+          <div className="flex items-center my-6 select-none">
+            <div className="flex-grow border-t border-slate-100" />
+            <span className="px-3 text-[10px] font-black text-slate-300 tracking-widest">
               OR
             </span>
-            <div className="flex-grow border-t border-gray-100" />
+            <div className="flex-grow border-t border-slate-100" />
           </div>
 
           {/* GOOGLE SIGN-IN BUTTON */}
@@ -192,18 +186,18 @@ const SignIn = () => {
             onClick={GoogleSignIn}
             type="button"
             variant="bordered"
-            className="w-full py-3 border-gray-200 text-slate-700 hover:bg-slate-50 font-bold text-[13px] rounded-lg transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-wider"
+            className="w-full h-11 border-slate-200 text-[#0F172A] hover:bg-slate-50 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
           >
-            <FcGoogle className="text-lg shrink-0" />
+            <FcGoogle className="text-base shrink-0" />
             <span>Continue with Google</span>
           </Button>
 
           {/* DYNAMIC PATH SWITCH FOOTER LINK */}
-          <div className="pt-6 w-full text-center text-xs font-bold text-slate-500 tracking-wide select-none">
+          <div className="pt-6 w-full text-center text-xs font-bold text-slate-400 tracking-wide select-none">
             Don't have an account?{" "}
             <Link
               href="/auth/signup"
-              className="text-[#0D3B66] hover:underline ml-0.5"
+              className="text-[#7C3AED] font-black hover:text-[#6D28D9] transition-colors ml-0.5 hover:underline"
             >
               Sign up
             </Link>
@@ -211,58 +205,70 @@ const SignIn = () => {
         </motion.div>
       </div>
 
-      {/* --- RIGHT PANEL: ANALYTICS INFRASTRUCTURE --- */}
-      <div className="relative hidden lg:flex flex-col w-full min-h-screen overflow-hidden p-16 justify-center bg-transparent">
-        <div className="w-full max-w-[520px] mx-auto space-y-5">
-          {/* Card 1: Global Fleet Tracking */}
-          <div className="w-full bg-white rounded-xl shadow-[0_10px_30px_rgba(13,59,102,0.02)] p-6 flex flex-col space-y-4 border border-gray-100/50">
-            <div className="w-11 h-11 bg-[#0D3B66] rounded-lg flex items-center justify-center text-white text-lg shadow-inner">
-              <FiTruck strokeWidth={2.5} />
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-lg font-black text-[#0D3B66] tracking-tight">
-                Global Fleet Tracking
-              </h3>
-              <p className="text-[13px] text-slate-500 font-semibold leading-relaxed">
-                Monitor your shipments in real-time across all active zones with
-                precision routing.
-              </p>
-            </div>
-          </div>
-
-          {/* Row Combo Grid */}
-          <div className="grid grid-cols-2 gap-5 w-full">
-            {/* Card 2: 99% On-Time Delivery */}
-            <div className="bg-white rounded-xl shadow-[0_10px_30px_rgba(13,59,102,0.02)] p-6 flex flex-col justify-between h-[155px] border border-gray-100/50">
-              <FiTrendingUp
-                className="text-[#F46036] text-xl"
-                strokeWidth={2.5}
+      {/* --- RIGHT PANEL: COMPACT DUAL TILTED FRONTS --- */}
+      <div className="relative hidden lg:flex flex-col w-full h-screen p-12 justify-center items-center bg-[#0F172A]">
+        
+        {/* Subtle grid mesh overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:30px_30px]" />
+        
+        <div className="w-full max-w-[460px] relative z-10 flex flex-col items-center">
+          
+          {/* Dual Rectangle Angle Grid Structure */}
+          <div className="relative w-full h-[320px] mb-10 flex items-center justify-center">
+            
+            {/* Rectangle 1: Tilted Left (Classic Aesthetics Library) */}
+            <motion.div 
+              initial={{ opacity: 0, rotate: -6, x: -20, scale: 0.95 }}
+              animate={{ opacity: 0.85, rotate: -8, x: -30, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              whileHover={{ rotate: -4, x: -15, opacity: 1, zIndex: 30 }}
+              className="absolute w-[240px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-[#1E293B] shadow-2xl origin-bottom transition-all duration-300 cursor-pointer"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=600&auto=format&fit=crop"
+                alt="Classical Archival Library"
+                fill
+                className="object-cover"
+                sizes="30vw"
+                priority
               />
-              <div className="space-y-0.5">
-                <span className="text-4xl font-black text-[#0D3B66] tracking-tighter block leading-none">
-                  99%
-                </span>
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">
-                  On-Time Delivery
-                </span>
-              </div>
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 via-[#0F172A]/20 to-transparent" />
+            </motion.div>
 
-            {/* Card 3: Smart Routing */}
-            <div className="bg-[#0D3B66] rounded-xl shadow-[0_15px_35px_rgba(13,59,102,0.15)] p-6 flex flex-col justify-between h-[155px] text-white">
-              <FiBox className="text-emerald-400 text-xl" strokeWidth={2.5} />
-              <div className="space-y-1">
-                <h4 className="text-[15px] font-extrabold tracking-tight leading-tight">
-                  Smart Routing
-                </h4>
-                <p className="text-[11px] text-slate-300 font-medium leading-normal">
-                  AI-driven path optimization.
-                </p>
-              </div>
-            </div>
+            {/* Rectangle 2: Tilted Right (Modern Minimalist Books Stack) */}
+            <motion.div 
+              initial={{ opacity: 0, rotate: 6, x: 20, scale: 0.95 }}
+              animate={{ opacity: 1, rotate: 8, x: 30, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+              whileHover={{ rotate: 4, x: 15, zIndex: 30 }}
+              className="absolute w-[240px] aspect-[4/5] rounded-2xl overflow-hidden border-2 border-white/10 bg-[#1E293B] shadow-[0_25px_50px_rgba(0,0,0,0.4)] origin-bottom transition-all duration-300 cursor-pointer z-20"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop"
+                alt="Modern Curated Reading Books"
+                fill
+                className="object-cover"
+                sizes="30vw"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 via-[#0F172A]/20 to-transparent" />
+            </motion.div>
+
           </div>
+
+          {/* Clean Elegant Text Info */}
+          <div className="space-y-2 text-center">
+            <h2 className="text-xl font-black text-white tracking-tight">
+              Your Personal Reading Space
+            </h2>
+            <p className="text-xs font-medium text-slate-400 max-w-xs mx-auto leading-relaxed">
+              Discover, request, and manage your curated books with real-time automated delivery tracking workflows.
+            </p>
+          </div>
+
         </div>
       </div>
+
     </main>
   );
 };

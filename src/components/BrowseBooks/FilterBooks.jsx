@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
-import { Select, ListBox, Checkbox } from "@heroui/react";
-import { FiSearch } from "react-icons/fi";
+import { Select, ListBox } from "@heroui/react";
+import { FiSearch, FiSliders, FiX, FiCheck, FiChevronRight } from "react-icons/fi";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 const FilterBooks = () => {
@@ -15,12 +14,16 @@ const FilterBooks = () => {
     searchParams.get("search") || "",
   );
 
+  // Directly derive initial values as explicit fallback strings
+  const currentCategory = searchParams.get("category") || "all";
+  const currentFee = searchParams.get("fee") || "all";
+
   const categoryOptions = [
     { id: "all", label: "All Categories" },
     { id: "Fiction", label: "Fiction" },
     { id: "Sci-Fi", label: "Sci-Fi" },
     { id: "Fantasy", label: "Fantasy" },
-    { id: "Mystery-Thriller", label: "Mystery-Thriller" },
+    { id: "Mystery-Thriller", label: "Mystery & Thriller" },
     { id: "Romance", label: "Romance" },
     { id: "Academic", label: "Academic" },
     { id: "History", label: "History" },
@@ -29,6 +32,13 @@ const FilterBooks = () => {
     { id: "Business", label: "Business" },
     { id: "Children", label: "Children" },
     { id: "Poetry", label: "Poetry" },
+  ];
+
+  const feeOptions = [
+    { id: "all", label: "Any Delivery Fee" },
+    { id: "free", label: "Free Delivery" },
+    { id: "low", label: "Under $5" },
+    { id: "high", label: "Above $5" },
   ];
 
   const updateQueryParams = (key, value) => {
@@ -40,10 +50,13 @@ const FilterBooks = () => {
       params.delete(key);
     }
 
-    
     params.delete("page");
-
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const clearAllFilters = () => {
+    setSearchValue("");
+    router.push(pathname, { scroll: false });
   };
 
   useEffect(() => {
@@ -56,97 +69,161 @@ const FilterBooks = () => {
     return () => clearTimeout(timeoutId);
   }, [searchValue]);
 
+  const hasActiveFilters = searchValue || currentCategory !== "all" || currentFee !== "all";
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-8 pt-6">
-      <h1 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-6 tracking-tight">
-        Browse Books
-      </h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-10 mb-10">
+      
+      {/* Dynamic Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-black text-[#111827] tracking-tight mb-1">
+            Explore Book Marketplace
+          </h1>
+          <p className="text-sm font-medium text-gray-400">
+            Discover and securely reserve curated prints from independent collections nearby.
+          </p>
+        </div>
+        
+        {hasActiveFilters && (
+          <button
+            onClick={clearAllFilters}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-gray-500 hover:text-[#7C3AED] bg-slate-100 hover:bg-purple-50 rounded-xl border border-transparent transition-all self-start sm:self-auto"
+          >
+            <FiX size={14} /> Clear Active Filters
+          </button>
+        )}
+      </div>
 
-      <div className="w-full bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-4 items-center">
-        <div className="relative w-full lg:flex-grow">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-            <FiSearch className="text-slate-400 size-[18px]" />
+      {/* Main Container Wrapper */}
+      <div className="w-full bg-slate-50/60 backdrop-blur-md rounded-3xl border border-slate-200/60 p-4 md:p-6 space-y-6 shadow-sm">
+        
+        {/* Row 1: Search and Dropdowns combined wrapper */}
+        <div className="flex flex-col lg:flex-row gap-4">
+          
+          {/* Custom Search Input */}
+          <div className="relative flex-1 group">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#7C3AED] transition-colors">
+              <FiSearch size={18} />
+            </div>
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search by title, author keywords, or ISBN numbers..."
+              className="w-full h-12 pl-11 pr-10 bg-white border border-slate-200 rounded-2xl outline-none hover:border-slate-300 focus:border-[#7C3AED] focus:ring-4 focus:ring-purple-50 transition-all text-sm font-medium text-gray-700 placeholder:text-gray-400 shadow-sm"
+            />
+            {searchValue && (
+              <button 
+                onClick={() => setSearchValue("")}
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600"
+              >
+                <FiX size={16} />
+              </button>
+            )}
           </div>
-          <input
-            type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search title, author, or ISBN..."
-            className="w-full h-11 pl-10 pr-4 bg-white border border-slate-200 rounded-xl outline-none hover:border-slate-300 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-all shadow-sm text-slate-700 placeholder:text-slate-400"
-          />
+
+          {/* Interactive Filters Area */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            
+            {/* Category Dropdown Component */}
+            <Select
+              placeholder="All Categories"
+              selectedKeys={new Set([currentCategory])}
+              onSelectionChange={(keys) => {
+                const arr = Array.from(keys);
+                if (arr.length > 0) {
+                  updateQueryParams("category", arr[0].toString());
+                }
+              }}
+              className="w-full sm:w-[200px]"
+              aria-label="Filter Category"
+            >
+              <Select.Trigger className="h-12 px-4 border-slate-200 rounded-2xl bg-white text-sm font-bold text-gray-700 shadow-sm hover:border-slate-300 transition-colors">
+                <div className="flex items-center gap-2">
+                  <FiSliders size={14} className="text-gray-400" />
+                  <Select.Value />
+                </div>
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover className="rounded-2xl border border-slate-100 shadow-xl p-1 bg-white">
+                <ListBox>
+                  {categoryOptions.map((item) => (
+                    <ListBox.Item
+                      key={item.id}
+                      id={item.id}
+                      textValue={item.label}
+                      className="rounded-xl px-3 py-2 text-sm font-semibold transition-colors data-[selected=true]:bg-purple-50 data-[selected=true]:text-[#7C3AED] hover:bg-slate-50 cursor-pointer flex items-center justify-between"
+                    >
+                      {item.label}
+                    </ListBox.Item>
+                  ))}
+                </ListBox>
+              </Select.Popover>
+            </Select>
+
+            {/* Delivery Fee Dropdown Component */}
+            {/* <Select
+              placeholder="Delivery Fee"
+              selectedKeys={new Set([currentFee])}
+              onSelectionChange={(keys) => {
+                const arr = Array.from(keys);
+                if (arr.length > 0) {
+                  updateQueryParams("fee", arr[0].toString());
+                }
+              }}
+              className="w-full sm:w-[200px]"
+              aria-label="Filter Delivery Fee"
+            >
+              <Select.Trigger className="h-12 px-4 border-slate-200 rounded-2xl bg-white text-sm font-bold text-gray-700 shadow-sm hover:border-slate-300 transition-colors">
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover className="rounded-2xl border border-slate-100 shadow-xl p-1 bg-white">
+                <ListBox>
+                  {feeOptions.map((item) => (
+                    <ListBox.Item
+                      key={item.id}
+                      id={item.id}
+                      textValue={item.label}
+                      className="rounded-xl px-3 py-2 text-sm font-semibold transition-colors data-[selected=true]:bg-blue-50 data-[selected=true]:text-[#2563EB] hover:bg-slate-50 cursor-pointer flex items-center justify-between"
+                    >
+                      {item.label}
+                    </ListBox.Item>
+                  ))}
+                </ListBox>
+              </Select.Popover>
+            </Select> */}
+
+          </div>
         </div>
 
-        {/* Dropdowns */}
-        <div className="flex w-full lg:w-auto gap-4 flex-col sm:flex-row">
-          <Select
-            placeholder="All Categories"
-            defaultSelectedKeys={
-              new Set([searchParams.get("category") || "all"])
-            }
-            onSelectionChange={(keys) => {
-              const selectedValue =
-                keys instanceof Set ? Array.from(keys)[0] : keys;
-              if (selectedValue) {
-                updateQueryParams("category", selectedValue.toString());
-              }
-            }}
-            className="w-full sm:w-[180px] lg:w-[200px]"
-            aria-label="Select Category"
-          >
-            <Select.Trigger className="h-11 border-slate-200 bg-white">
-              <Select.Value />
-              <Select.Indicator />
-            </Select.Trigger>
-            <Select.Popover>
-              <ListBox>
-                {categoryOptions.map((item) => (
-                  <ListBox.Item
-                    key={item.id}
-                    id={item.id === "all" ? "all" : item.label}
-                    textValue={item.label}
-                  >
-                    {item.label}
-                  </ListBox.Item>
-                ))}
-              </ListBox>
-            </Select.Popover>
-          </Select>
-
-          <Select
-            placeholder="Delivery Fee"
-            defaultSelectedKeys={new Set([searchParams.get("fee") || "all"])}
-            onSelectionChange={(keys) => {
-              const selectedValue =
-                keys instanceof Set ? Array.from(keys)[0] : keys;
-              if (selectedValue) {
-                updateQueryParams("fee", selectedValue.toString());
-              }
-            }}
-            className="w-full sm:w-[180px] lg:w-[200px]"
-            aria-label="Select Delivery Fee"
-          >
-            <Select.Trigger className="h-11 border-slate-200 bg-white">
-              <Select.Value />
-              <Select.Indicator />
-            </Select.Trigger>
-            <Select.Popover>
-              <ListBox>
-                <ListBox.Item id="all" textValue="All Fees">
-                  All Fees
-                </ListBox.Item>
-                <ListBox.Item id="free" textValue="Free">
-                  Free
-                </ListBox.Item>
-                <ListBox.Item id="low" textValue="Under $5">
-                  Under $5
-                </ListBox.Item>
-                <ListBox.Item id="high" textValue="Above $5">
-                  Above $5
-                </ListBox.Item>
-              </ListBox>
-            </Select.Popover>
-          </Select>
+        {/* Row 2: Premium Horizontal Scrolling Quick-Chips Carousel */}
+        <div className="pt-4 border-t border-slate-200/60 relative flex items-center">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth w-full py-1 pr-8">
+            {categoryOptions.map((cat) => {
+              const isSelected = currentCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => updateQueryParams("category", cat.id)}
+                  className={`h-9 px-4 rounded-full text-xs font-bold transition-all shrink-0 whitespace-nowrap border ${
+                    isSelected
+                      ? "bg-[#7C3AED] text-white border-transparent shadow-[0_4px_12px_rgba(124,58,237,0.2)]"
+                      : "bg-white text-gray-500 border-slate-200 hover:border-slate-300 hover:text-gray-700"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+          {/* Edge fade gradient box indicating overflow navigation layout */}
+          <div className="absolute right-0 top-3 bottom-0 w-12 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent pointer-events-none flex items-center justify-end text-gray-300">
+            <FiChevronRight size={16} className="mr-1 mt-1" />
+          </div>
         </div>
+
       </div>
     </div>
   );

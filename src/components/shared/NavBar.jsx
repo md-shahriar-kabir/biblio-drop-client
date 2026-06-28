@@ -134,7 +134,7 @@ const NavBar = () => {
 
               {/* Get Started Button */}
               <Link
-                href="#"
+                href="/auth/signup"
                 className="bg-[#7C3AED] text-white font-bold text-[15px] px-6 h-10 rounded-md shadow-sm hover:bg-purple-700 flex items-center justify-center transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
               >
                 Get Started
@@ -241,7 +241,7 @@ const NavBar = () => {
                   )}
 
                   <Link
-                    href="#"
+                    href="/auth/signup"
                     onClick={() => setIsOpen(false)}
                     className="bg-[#7C3AED] text-white font-bold text-[16px] h-11 rounded-md shadow-md hover:bg-purple-700 flex items-center justify-center transition-all whitespace-nowrap"
                   >

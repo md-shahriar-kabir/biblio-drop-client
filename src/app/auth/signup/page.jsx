@@ -16,12 +16,12 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 // Icons
-import { FiEye, FiEyeOff, FiUploadCloud } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiUploadCloud, FiBook } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
-const SighUp = () => {
+const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [agree, setAgree] = useState(false);
@@ -118,70 +118,42 @@ const SighUp = () => {
   };
 
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-[#F8FAFC] text-slate-900 select-text relative">
-      {/* LEFT PANEL: BRANDING & HERO IMAGE */}
-      <div className="relative hidden lg:flex flex-col w-full min-h-screen bg-[#F8FAFC] border-r border-gray-100 overflow-hidden p-12">
-        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-          <Image
-            src="/SplitScreenForSignup.png"
-            alt="Logistics background"
-            fill
-            sizes="50vw"
-            className="object-cover object-center opacity-90 select-none bg-no-repeat"
-            style={{ objectFit: "cover", bgRepeat: "no-repeat" }}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-[#F8FAFC]/90 z-[1]" />
-        </div>
-
-        <div className="relative z-20 w-full self-start">
-          <Link
-            href="/"
-            className="relative block w-[160px] h-[40px] select-none"
-          >
-            <Image
-              src="/BookDrop.png"
-              alt="BookDrop Logo"
-              fill
-              sizes="160px"
-              className="object-contain"
-              priority
-            />
-          </Link>
-        </div>
-
-        <div className="relative z-20 flex-grow flex flex-col justify-end max-w-md space-y-4 select-none pb-12">
-          <h1 className="text-4xl font-extrabold text-[#0D3B66] tracking-tight leading-[1.2]">
-            Streamline your <br />
-            reading journey.
-          </h1>
-          <p className="text-slate-600 font-semibold text-[15px] leading-relaxed max-w-xs">
-            Join thousands of readers and libraries connected by an efficient,
-            data-driven logistics network.
-          </p>
-        </div>
-
-        <div className="relative z-20 w-full self-end pt-6">
-          <div className="flex items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider select-none">
-            <Link href="#" className="hover:text-[#F46036] transition-colors">
-              Privacy Policy
-            </Link>
-            <span>•</span>
-            <Link href="#" className="hover:text-[#F46036] transition-colors">
-              Terms & Conditions
-            </Link>
-          </div>
-        </div>
+    <main className="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative text-[#0F172A] select-text overflow-x-hidden">
+      
+      {/* --- BACKGROUND IMMERSIVE BLURRED LIBRARY IMAGE --- */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop"
+          alt="Library Background Blur"
+          fill
+          sizes="100vw"
+          className="object-cover object-center scale-105 blur-[6px] select-none"
+          priority
+        />
+        {/* Dark Slate overlay to match theme colors and increase form contrast */}
+        <div className="absolute inset-0 bg-[#0F172A]/85 backdrop-blur-[2px] z-[1]" />
       </div>
 
-      {/* RIGHT PANEL: THE FLOATING FORM CARD */}
-      <div className="w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative bg-[#F8FAFC]">
+      {/* --- CENTER FLOATING SIGN-UP CARD --- */}
+      <div className="w-full flex items-center justify-center relative z-10 py-6">
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="w-full max-w-[650px] bg-white rounded-2xl border border-gray-100 shadow-[0_20px_50px_rgba(13,59,102,0.04)] p-6 sm:p-10 transition-all duration-300"
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="w-full max-w-[620px] bg-white rounded-3xl border border-slate-200/50 shadow-[0_25px_60px_rgba(0,0,0,0.3)] p-6 sm:p-10 transition-all duration-300"
         >
+          {/* Brand Logo Header (Matching Sign-In Styling) */}
+          <div className="mb-8 flex justify-center select-none">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="w-10 h-10 bg-[#F5F3FF] rounded-xl flex items-center justify-center text-[#7C3AED] shadow-sm group-hover:scale-105 transition-transform">
+                <FiBook size={20} strokeWidth={2.5} />
+              </div>
+              <span className="text-2xl font-black text-[#0F172A] tracking-tight">
+                Biblio<span className="text-[#7C3AED]">Drop</span>
+              </span>
+            </Link>
+          </div>
+
           <Form
             onSubmit={handleSignIn}
             className="w-full space-y-5"
@@ -189,26 +161,26 @@ const SighUp = () => {
           >
             <Fieldset className="w-full space-y-4">
               {/* Header Title Section */}
-              <div className="space-y-1.5">
-                <Fieldset.Legend className="text-[28px] font-black tracking-tight text-[#0D3B66]">
-                  Join BookDrop
+              <div className="space-y-1.5 text-center sm:text-left">
+                <Fieldset.Legend className="text-3xl font-black tracking-tight text-[#0F172A] w-full">
+                  Create Your Account
                 </Fieldset.Legend>
-                <span className="text-[13px] font-medium text-slate-400 tracking-wide block">
-                  Start your journey of reading and logistics today.
+                <span className="text-xs font-semibold text-slate-400 tracking-wide block leading-relaxed">
+                  Join BiblioDrop to manage your library dashboard, requests, and automated book delivery metrics.
                 </span>
               </div>
 
               {/* Form Input Layout Fields */}
               <div className="space-y-4 w-full pt-1">
                 {/* 1 & 2: FULL NAME & EMAIL ADDRESS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <TextField className="w-full" isRequired name="name" type="text">
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       Full Name
                     </Label>
-                    <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white ">
+                    <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                       <InputGroup.Input
-                        className="bg-transparent px-4 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
+                        className="bg-transparent h-11 px-4 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
                         placeholder="John Doe"
                       />
                     </InputGroup>
@@ -216,12 +188,12 @@ const SighUp = () => {
                   </TextField>
 
                   <TextField className="w-full" name="email" type="email" isRequired>
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       Email Address
                     </Label>
-                    <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white ">
+                    <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                       <InputGroup.Input
-                        className="bg-transparent px-4 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
+                        className="bg-transparent h-11 px-4 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
                         placeholder="john@example.com"
                       />
                     </InputGroup>
@@ -229,17 +201,17 @@ const SighUp = () => {
                   </TextField>
                 </div>
 
-                {/* 3 & 4: IMAGE UPLOAD & ROLE SELECTION (Side by Side) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* 3 & 4: IMAGE UPLOAD & ROLE SELECTION */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="w-full">
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       Avatar Image Upload
                     </Label>
-                    <label className="border border-gray-200 hover:border-[#0D3B66] focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white py-2.5 flex items-center px-4 justify-between cursor-pointer transition-colors group">
-                      <span className={`text-[13px] font-semibold truncate max-w-[80%] ${fileName ? "text-slate-800" : "text-slate-400"}`}>
-                        {fileName || "Choose file or drag here..."}
+                    <label className="h-11 border border-slate-200 hover:border-[#7C3AED] focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 flex items-center px-4 justify-between cursor-pointer transition-all group">
+                      <span className={`text-xs font-bold truncate max-w-[80%] ${fileName ? "text-slate-700" : "text-slate-300"}`}>
+                        {fileName || "Choose profile file..."}
                       </span>
-                      <FiUploadCloud className="text-slate-400 group-hover:text-[#0D3B66] size-4 transition-colors shrink-0" />
+                      <FiUploadCloud className="text-slate-400 group-hover:text-[#7C3AED] size-4 transition-colors shrink-0" />
                       <input
                         type="file"
                         accept="image/*"
@@ -250,7 +222,7 @@ const SighUp = () => {
                   </div>
 
                   <div className="w-full">
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       I am a...
                     </Label>
                     <div className="relative group">
@@ -258,23 +230,23 @@ const SighUp = () => {
                         name="role"
                         onChange={(e) => setRole(e.target.value)}
                         required
-                        className="w-full py-2.5 border border-gray-200 rounded-lg bg-white px-4 text-[13px] font-semibold text-slate-800 outline-none focus:border-[#0D3B66] focus:ring-1 focus:ring-[#0D3B66] appearance-none cursor-pointer transition-colors"
+                        className="w-full h-11 border border-slate-200 rounded-xl bg-slate-50/50 px-4 text-xs font-bold text-slate-700 outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/5 appearance-none cursor-pointer transition-all"
                         defaultValue="user"
                       >
-                        <option name="user" value="user" className="font-semibold text-slate-800">
+                        <option value="user" className="font-bold text-slate-700">
                           Reader
                         </option>
-                        <option name="librarian" value="librarian" className="font-semibold text-slate-800">
+                        <option value="librarian" className="font-bold text-slate-700">
                           Librarian
                         </option>
                       </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none border-l-[5px] border-r-[5px] border-t-[5px] border-transparent border-t-slate-400 group-focus-within:border-t-[#0D3B66] transition-colors w-0 h-0" />
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none border-l-[4px] border-r-[4px] border-t-[4px] border-transparent border-t-slate-400 group-focus-within:border-t-[#7C3AED] transition-colors w-0 h-0" />
                     </div>
                   </div>
                 </div>
 
-                {/* 5 & 6: PASSWORD & CONFIRM PASSWORD (Side by Side) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* 5 & 6: PASSWORD & CONFIRM PASSWORD */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <TextField
                     className="w-full"
                     name="password"
@@ -283,17 +255,17 @@ const SighUp = () => {
                       if (!value) return "Password is required";
                       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_\-.])[A-Z0-9a-z@$!%*?&#_\-.]{8,}$/;
                       if (!passwordRegex.test(value)) {
-                        return "Must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character and be min 8 characters.";
+                        return "Must contain 1 uppercase, 1 lowercase, 1 number, 1 special char (min 8).";
                       }
                       return null;
                     }}
                   >
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       Password
                     </Label>
-                    <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white ">
+                    <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                       <InputGroup.Input
-                        className="bg-transparent pl-4 pr-1 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
+                        className="bg-transparent h-11 pl-4 pr-1 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
                         type={isVisible ? "text" : "password"}
                         placeholder="••••••••"
                       />
@@ -302,23 +274,23 @@ const SighUp = () => {
                           isIconOnly
                           size="sm"
                           variant="light"
-                          className="text-slate-400 hover:text-slate-600 rounded-md min-w-0 p-0 bg-transparent"
+                          className="text-slate-400 hover:text-slate-600 rounded-lg min-w-0 p-0 bg-transparent"
                           onPress={() => setIsVisible(!isVisible)}
                         >
-                          {isVisible ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                          {isVisible ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                         </Button>
                       </InputGroup.Suffix>
                     </InputGroup>
-                    <FieldError className="text-xs font-semibold text-rose-500 mt-1 pl-1 max-w-[280px] sm:max-w-none block" />
+                    <FieldError className="text-[11px] font-semibold text-rose-500 mt-1 pl-1 max-w-[280px] sm:max-w-none block leading-tight" />
                   </TextField>
 
                   <TextField className="w-full" name="confirmPassword" isRequired>
-                    <Label className="text-[10px] font-black text-[#0D3B66] tracking-widest uppercase mb-1.5 block">
+                    <Label className="text-[10px] font-black text-[#0F172A] tracking-widest uppercase mb-1.5 block">
                       Confirm Password
                     </Label>
-                    <InputGroup className="border border-gray-200 focus-within:border-[#0D3B66] focus-within:ring-1 focus-within:ring-[#0D3B66] rounded-lg overflow-hidden bg-white ">
+                    <InputGroup className="border border-slate-200 focus-within:border-[#7C3AED] focus-within:ring-2 focus-within:ring-[#7C3AED]/5 rounded-xl overflow-hidden bg-slate-50/50 transition-all">
                       <InputGroup.Input
-                        className="bg-transparent pl-4 pr-1 text-[13px] font-semibold text-slate-800 placeholder:text-slate-300 w-full outline-none"
+                        className="bg-transparent h-11 pl-4 pr-1 text-xs font-bold text-slate-700 placeholder:text-slate-300 w-full outline-none"
                         type={isConfirmVisible ? "text" : "password"}
                         placeholder="••••••••"
                       />
@@ -327,14 +299,14 @@ const SighUp = () => {
                           isIconOnly
                           size="sm"
                           variant="light"
-                          className="text-slate-400 hover:text-slate-600 rounded-md min-w-0 p-0 bg-transparent"
+                          className="text-slate-400 hover:text-slate-600 rounded-lg min-w-0 p-0 bg-transparent"
                           onPress={() => setIsConfirmVisible(!isConfirmVisible)}
                         >
-                          {isConfirmVisible ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                          {isConfirmVisible ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                         </Button>
                       </InputGroup.Suffix>
                     </InputGroup>
-                    <FieldError className="text-xs font-semibold text-rose-500 mt-1 pl-1 max-w-[280px] sm:max-w-none block" />
+                    <FieldError className="text-xs font-semibold text-rose-500 mt-1 pl-1 block" />
                   </TextField>
                 </div>
 
@@ -344,18 +316,18 @@ const SighUp = () => {
                     onChange={() => setAgree(!agree)}
                     type="checkbox"
                     id="terms"
-                    className="mt-0.5 rounded border-gray-300 text-[#F46036] focus:ring-[#F46036] h-3.5 w-3.5 cursor-pointer"
+                    className="mt-0.5 rounded border-slate-300 text-[#7C3AED] focus:ring-[#7C3AED] h-4 w-4 cursor-pointer transition-all"
                   />
                   <label
                     htmlFor="terms"
-                    className="text-xs font-semibold text-slate-500 cursor-pointer leading-tight"
+                    className="text-xs font-bold text-slate-400 cursor-pointer leading-normal"
                   >
                     I agree to the{" "}
-                    <Link href="#" className="text-[#0D3B66] hover:underline">
+                    <Link href="#" className="text-[#7C3AED] font-black hover:underline">
                       Terms & Conditions
                     </Link>{" "}
                     and{" "}
-                    <Link href="#" className="text-[#0D3B66] hover:underline">
+                    <Link href="#" className="text-[#7C3AED] font-black hover:underline">
                       Privacy Policy
                     </Link>
                     .
@@ -367,7 +339,7 @@ const SighUp = () => {
               <Button
                 isDisabled={!agree}
                 type="submit"
-                className="w-full py-3 bg-[#F46036] text-white font-bold text-sm rounded-lg shadow-md hover:bg-[#D34A26] transition-all duration-200 flex items-center justify-center uppercase tracking-wider"
+                className="w-full h-11 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-xs rounded-xl shadow-md shadow-[#7C3AED]/10 transition-all duration-200 uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Create Account
               </Button>
@@ -375,12 +347,12 @@ const SighUp = () => {
           </Form>
 
           {/* OR DIVIDER */}
-          <div className="flex items-center my-4 select-none">
-            <div className="flex-grow border-t border-gray-100" />
-            <span className="px-3 text-[11px] font-black text-slate-400 tracking-widest">
+          <div className="flex items-center my-5 select-none">
+            <div className="flex-grow border-t border-slate-100" />
+            <span className="px-3 text-[10px] font-black text-slate-300 tracking-widest">
               OR
             </span>
-            <div className="flex-grow border-t border-gray-100" />
+            <div className="flex-grow border-t border-slate-100" />
           </div>
 
           {/* GOOGLE SIGN-IN BUTTON */}
@@ -388,26 +360,27 @@ const SighUp = () => {
             onClick={GoogleSignIn}
             type="button"
             variant="bordered"
-            className="w-full py-3 border-gray-200 text-slate-700 hover:bg-slate-50 font-bold text-[14px] rounded-lg transition-all flex items-center justify-center gap-2 bg-transparent"
+            className="w-full h-11 border-slate-200 text-[#0F172A] hover:bg-slate-50 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
           >
-            <FcGoogle className="text-lg shrink-0" />
+            <FcGoogle className="text-base shrink-0" />
             <span>Continue with Google</span>
           </Button>
 
           {/* DYNAMIC PATH SWITCH FOOTER LINK */}
-          <div className="pt-5 w-full text-center text-xs font-bold text-slate-500 tracking-wide select-none">
+          <div className="pt-5 w-full text-center text-xs font-bold text-slate-400 tracking-wide select-none">
             Already have an account?{" "}
             <Link
               href="/auth/signin"
-              className="text-[#0D3B66] hover:underline ml-0.5"
+              className="text-[#7C3AED] font-black hover:text-[#6D28D9] transition-colors ml-0.5 hover:underline"
             >
               Log in
             </Link>
           </div>
         </motion.div>
       </div>
+
     </main>
   );
 };
 
-export default SighUp;
+export default SignUp;
