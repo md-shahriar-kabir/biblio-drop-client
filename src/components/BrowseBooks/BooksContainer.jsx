@@ -23,34 +23,35 @@ const BooksContainer = ({ books }) => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center justify-center min-h-[50vh] px-4 text-center"
+        className="flex flex-col items-center justify-center min-h-[45vh] px-4 text-center relative overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm"
       >
-        <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
-          <FiBook size={40} className="text-slate-400" strokeWidth={1.5} />
+        {/* Deep glowing background accent ring behind the icon */}
+        <div className="w-24 h-24 bg-[#7C3AED]/10 rounded-full flex items-center justify-center mb-6 relative group">
+          <div className="absolute inset-0 rounded-full bg-[#7C3AED]/20 animate-ping opacity-20" />
+          <FiBook size={38} className="text-[#7C3AED]" strokeWidth={2} />
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-extrabold text-[#0A2540] mb-3">
+        <h2 className="text-2xl md:text-3xl font-black text-[#111827] mb-3 tracking-tight">
           No Books Available
         </h2>
 
-        <p className="text-slate-500 text-[15px] max-w-md leading-relaxed">
+        <p className="text-gray-400 text-[15px] max-w-sm leading-relaxed font-medium">
           There are currently no approved books to display. Please check back
-          later as our library is always growing.
+          later as our Biblio Drop library is always growing.
         </p>
       </motion.div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full py-4 px-2">
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {approvedBooks.map((book) => (
-          
           <BookCard key={book._id} book={book} />
         ))}
       </motion.div>
