@@ -1,6 +1,6 @@
 /* Swiper Pagination Customization */
 .swiper-pagination-bullet {
-  background-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgb(255, 255, 255) !important;
   opacity: 1 !important;
   width: 10px !important;
   height: 10px !important;
@@ -8,7 +8,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #F46036 !important;
+  background-color: #8c04f4 !important;
   width: 30px !important;
   border-radius: 8px !important;
 }

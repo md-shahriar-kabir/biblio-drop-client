@@ -15,12 +15,12 @@ import {
   FiMenu,
   FiMessageSquare,
   FiPackage,
-  FiPlus,
   FiPlusCircle,
   FiTruck,
   FiUser,
   FiUsers,
   FiX,
+  FiBook,
 } from "react-icons/fi";
 
 import { authClient } from "@/lib/auth-client";
@@ -93,11 +93,6 @@ const DashboardSidebar = () => {
       href: "/dashboard/admin/users",
       icon: FiUsers,
     },
-    // {
-    //   name: "Manage All Books",
-    //   href: "/dashboard/admin/manage-all-books",
-    //   icon: FiBookOpen,
-    // },
     {
       name: "View All Transactions",
       href: "/dashboard/admin/view-all-transactions",
@@ -110,7 +105,7 @@ const DashboardSidebar = () => {
     librarian: librarianNavItems,
     admin: adminNavItems,
   };
-  const navItems = navLinksMap[user?.role || "user"] || {};
+  const navItems = navLinksMap[user?.role || "user"] || [];
 
   if (isPending) {
     return <SidebarSkeleton />;
@@ -119,19 +114,19 @@ const DashboardSidebar = () => {
   return (
     <>
       {/* --- MOBILE TOP BAR NAVIGATION --- */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0D3B66] flex items-center justify-between px-4 z-50 border-b border-white/5 shadow-md">
-        <Link
-          href="/dashboard"
-          className="relative block w-[140px] h-[34px] select-none"
-        >
-          <span className="font-bold text-xl tracking-tight text-[#fdfeff]">
-           📚 Biblio<span className="text-[#7C3AED]">Drop</span>
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0F172A] flex items-center justify-between px-6 z-50 border-b border-slate-800/60 shadow-lg">
+        <Link href="/dashboard" className="inline-flex items-center gap-2 select-none">
+          <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-[#7C3AED]">
+            <FiBook size={16} strokeWidth={2} />
+          </div>
+          <span className="text-lg font-bold text-white tracking-tight">
+            Biblio<span className="text-[#7C3AED]">Drop</span>
           </span>
         </Link>
         <Button
           isIconOnly
           variant="light"
-          className="text-white bg-white/5 hover:bg-white/10"
+          className="text-white bg-slate-800/40 hover:bg-slate-800/80 rounded-xl"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
@@ -141,65 +136,63 @@ const DashboardSidebar = () => {
       {/* --- BACKDROP FOR MOBILE --- */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity"
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-md z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* --- CORE SIDEBAR NAVIGATION CONTAINER --- */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 w-[260px] bg-[#0A2540] text-white flex flex-col justify-between p-6 transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-40 w-[260px] bg-[#0F172A] border-r border-slate-800/60 text-white flex flex-col justify-between p-6 transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? "translate-x-0 pt-24" : "-translate-x-full lg:pt-6"
         }`}
       >
         {/* UPPER PORTION */}
-        <div className="space-y-8">
-          {/* 1. BRAND LOGO SECTION (Hidden in mobile top-bar layout view) */}
-
-          <div className="relative z-10 w-full self-start hidden lg:block">
-            <Link
-              href="/"
-              className="relative block w-[160px] h-[40px] select-none"
-            >
-              <span className="font-bold text-xl tracking-tight text-[#fdfeff]">
-              📚 Biblio<span className="text-[#7C3AED]">Drop</span>
-            </span>
+        <div className="space-y-6">
+          {/* 1. BRAND LOGO SECTION */}
+          <div className="relative z-10 w-full hidden lg:block select-none mb-4">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="w-9 h-9 bg-slate-800 rounded-xl flex items-center justify-center text-[#7C3AED] shadow-sm group-hover:scale-105 transition-transform">
+                <FiBook size={18} strokeWidth={2} />
+              </div>
+              <span className="text-xl font-bold text-white tracking-tight">
+                Biblio<span className="text-[#7C3AED]">Drop</span>
+              </span>
             </Link>
           </div>
 
-          {/* 2. ADMIN USER PROFILE CARD CONTAINER */}
-          <div className="flex items-center gap-4 bg-transparent p-1 select-none w-full">
+          {/* 2. USER PROFILE CARD CONTAINER */}
+          <div className="flex items-center gap-3 bg-slate-800/20 border border-slate-800/40 rounded-2xl p-3.5 select-none w-full shadow-sm">
             <Avatar
               size="md"
-              className={`w-12 h-12 ring-[3px] bg-transparent shrink-0 transition-all duration-300 ${
+              className={`w-12 h-12 ring-[2px] bg-slate-900 shrink-0 transition-all duration-300 ${
                 user?.role === "admin"
-                  ? "ring-rose-500/30"
+                  ? "ring-rose-500/40"
                   : user?.role === "librarian"
-                    ? "ring-sky-500/30"
-                    : "ring-slate-500/30"
+                    ? "ring-sky-500/40"
+                    : "ring-[#7C3AED]/40"
               }`}
             >
               <Avatar.Image
                 alt={user?.name || "User Profile"}
                 src={user?.image}
               />
-              <Avatar.Fallback className="bg-white/10 text-white font-bold text-sm uppercase">
+              <Avatar.Fallback className="bg-slate-800 text-slate-200 font-semibold text-sm uppercase">
                 {user?.name ? user?.name[0] : "U"}
               </Avatar.Fallback>
             </Avatar>
 
-            <div className="flex flex-col text-left min-w-0">
-              <span className="text-[16px] font-bold text-white tracking-wide leading-tight truncate">
+            <div className="flex flex-col text-left min-w-0 leading-normal">
+              <span className="text-[15px] font-bold text-white tracking-wide truncate">
                 {user?.name}
               </span>
-
               <span
-                className={`text-[13px] font-black tracking-wider uppercase truncate mt-1 transition-colors duration-300 ${
+                className={`text-[10px] font-bold tracking-widest uppercase truncate mt-1 px-2 py-0.5 rounded-md w-fit bg-slate-900/60 transition-colors duration-300 ${
                   user?.role === "admin"
-                    ? "text-rose-400"
+                    ? "text-purple-400 border border-white"
                     : user?.role === "librarian"
-                      ? "text-sky-400"
-                      : "text-emerald-400"
+                      ? "text-sky-400 border border-white"
+                      : "text-emerald-400 border border-white"
                 }`}
               >
                 {user?.role}
@@ -208,7 +201,7 @@ const DashboardSidebar = () => {
           </div>
 
           {/* 3. DYNAMIC MENU NAVIGATION LINKS */}
-          <nav className="space-y-1">
+          <nav className="space-y-1.5 pt-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -218,63 +211,44 @@ const DashboardSidebar = () => {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`w-full h-11 px-4 rounded-lg flex items-center gap-3 text-[13px] font-bold transition-all ${
+                  className={`w-full h-12 px-4 rounded-xl flex items-center gap-3 text-[13px] font-semibold tracking-wide uppercase transition-all duration-200 ${
                     isActive
-                      ? "bg-[#0D3B66] text-white shadow-lg shadow-black/10"
-                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                      ? "bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/15 border border-[#8B5CF6]/20"
+                      : "text-slate-400 hover:bg-slate-800/30 hover:text-white"
                   }`}
                 >
                   <Icon
-                    size={16}
-                    className={
-                      isActive
-                        ? "text-white"
-                        : "text-slate-400 group-hover:text-white"
-                    }
+                    size={17}
+                    className={isActive ? "text-white" : "text-slate-400 group-hover:text-white"}
                   />
-                  <span>{item.name}</span>
+                  <span className="truncate">{item.name}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* 4. ACTION INTERACTION BUTTON */}
-          <div className="pt-4 flex flex-col gap-3">
-            <Link href={`/dashboard/profile`}>
+          {/* 4. VIEW PROFILE ACTION BUTTON */}
+          <div className="pt-2">
+            <Link href={`/dashboard/profile`} onClick={() => setIsOpen(false)}>
               <Button
-                className="w-full h-11 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
-                onClick={() => console.log("Profile triggered")}
+                className="w-full h-12 bg-purple-900 hover:bg-purple-500 text-white font-bold text-[13px] uppercase tracking-wider rounded-xl transition-all shadow-md shadow-blue-500/10 flex items-center justify-center gap-2 border border-blue-400/20"
               >
-                <FiUser
-                  size={18}
-                  strokeWidth={2.5}
-                  className="text-slate-400"
-                />
+                <FiUser size={16} strokeWidth={2} />
                 <span>View Profile</span>
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* LOWER PORTION: SYSTEM SYSTEM LINKS */}
-        <div className="space-y-1 border-t border-white/5 pt-4">
-          <Link
-            href="/dashboard/support"
-            onClick={() => setIsOpen(false)}
-            className="w-full h-10 px-4 rounded-lg flex items-center gap-3 text-[13px] font-bold text-slate-400 hover:bg-white/5 hover:text-white transition-all"
-          >
-            <FiHelpCircle size={16} />
-            <span>Support</span>
-          </Link>
+        {/* LOWER PORTION: UTILITY SYSTEM LINKS */}
+        <div className="space-y-1.5 border-t border-slate-800/50 pt-4">
 
           <button
             type="button"
-            onClick={async () =>
-              await authClient.signOut(router.push("/auth/signin"))
-            }
-            className="w-full h-10 px-4 rounded-lg flex items-center gap-3 text-[13px] font-bold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-all text-left bg-transparent border-none cursor-pointer"
+            onClick={async () => await authClient.signOut(router.push("/auth/signin")) }
+            className="w-full h-11 px-4 rounded-xl flex items-center gap-3 text-[13px] font-semibold tracking-wide uppercase text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 transition-all text-left bg-transparent border-none cursor-pointer"
           >
-            <FiLogOut size={16} />
+            <FiLogOut size={17} />
             <span>Logout</span>
           </button>
         </div>
