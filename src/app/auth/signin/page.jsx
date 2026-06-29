@@ -18,6 +18,7 @@ import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { BsGoogle } from "react-icons/bs";
 
 const SignIn = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -186,9 +187,9 @@ const SignIn = () => {
             onClick={GoogleSignIn}
             type="button"
             variant="bordered"
-            className="w-full h-11 border-slate-200 text-[#0F172A] hover:bg-slate-50 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
+            className="w-full h-11 border-slate-200 text-[#0F172A] hover:border border-4 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
           >
-            <FcGoogle className="text-base shrink-0" />
+            <BsGoogle className="text-base shrink-0" />
             <span>Continue with Google</span>
           </Button>
 

@@ -17,9 +17,9 @@ import Image from "next/image";
 
 // Icons
 import { FiEye, FiEyeOff, FiUploadCloud, FiBook } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { BsGoogle } from "react-icons/bs";
 
 const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -48,7 +48,6 @@ const SignUp = () => {
         ...userData,
         image: photoURL,
       });
-      console.log(data, error);
       if (error) {
         toast.error(error.message || "Registration failed. Please try again.");
         return;
@@ -360,9 +359,9 @@ const SignUp = () => {
             onClick={GoogleSignIn}
             type="button"
             variant="bordered"
-            className="w-full h-11 border-slate-200 text-[#0F172A] hover:bg-slate-50 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
+            className="w-full h-11 border-slate-200 text-[#0F172A] hover:border border-4 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-2 bg-transparent uppercase tracking-widest"
           >
-            <FcGoogle className="text-base shrink-0" />
+            <BsGoogle className="text-base shrink-0" />
             <span>Continue with Google</span>
           </Button>
 

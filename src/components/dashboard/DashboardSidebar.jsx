@@ -214,7 +214,7 @@ const DashboardSidebar = () => {
                   className={`w-full h-12 px-4 rounded-xl flex items-center gap-3 text-[13px] font-semibold tracking-wide uppercase transition-all duration-200 ${
                     isActive
                       ? "bg-[#7C3AED] text-white shadow-md shadow-[#7C3AED]/15 border border-[#8B5CF6]/20"
-                      : "text-slate-400 hover:bg-slate-800/30 hover:text-white"
+                      : "text-slate-400 hover:bg-slate-800/100 hover:text-white"
                   }`}
                 >
                   <Icon
