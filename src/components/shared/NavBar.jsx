@@ -61,9 +61,7 @@ const NavBar = () => {
                 <path d="M14 6c0 1.5 1.5 2.5 1.5 2.5S17 7.5 17 6s-1-2-1.5-2S14 5 14 6z" fill="currentColor" stroke="none" />
               </svg>
             </div>
-            <span className="font-bold text-xl tracking-tight text-[#111827]">
-              Biblio<span className="text-[#7C3AED]">Drop</span>
-            </span>
+            
           </Link>
 
           {/* --- Desktop Central Navigation Menu --- */}
