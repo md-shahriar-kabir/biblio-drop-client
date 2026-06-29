@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Select, ListBox } from "@heroui/react";
+import { Select, ListBox, Button } from "@heroui/react";
 import { FiSearch, FiSliders, FiX, FiCheck, FiChevronRight } from "react-icons/fi";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
@@ -32,13 +32,6 @@ const FilterBooks = () => {
     { id: "Business", label: "Business" },
     { id: "Children", label: "Children" },
     { id: "Poetry", label: "Poetry" },
-  ];
-
-  const feeOptions = [
-    { id: "all", label: "Any Delivery Fee" },
-    { id: "free", label: "Free Delivery" },
-    { id: "low", label: "Under $5" },
-    { id: "high", label: "Above $5" },
   ];
 
   const updateQueryParams = (key, value) => {
@@ -122,80 +115,6 @@ const FilterBooks = () => {
               </button>
             )}
           </div>
-
-          {/* Interactive Filters Area */}
-          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-            
-            {/* Category Dropdown Component */}
-            <Select
-              placeholder="All Categories"
-              selectedKeys={new Set([currentCategory])}
-              onSelectionChange={(keys) => {
-                const arr = Array.from(keys);
-                if (arr.length > 0) {
-                  updateQueryParams("category", arr[0].toString());
-                }
-              }}
-              className="w-full sm:w-[200px]"
-              aria-label="Filter Category"
-            >
-              <Select.Trigger className="h-12 px-4 border-slate-200 rounded-2xl bg-white text-sm font-bold text-gray-700 shadow-sm hover:border-slate-300 transition-colors">
-                <div className="flex items-center gap-2">
-                  <FiSliders size={14} className="text-gray-400" />
-                  <Select.Value />
-                </div>
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover className="rounded-2xl border border-slate-100 shadow-xl p-1 bg-white">
-                <ListBox>
-                  {categoryOptions.map((item) => (
-                    <ListBox.Item
-                      key={item.id}
-                      id={item.id}
-                      textValue={item.label}
-                      className="rounded-xl px-3 py-2 text-sm font-semibold transition-colors data-[selected=true]:bg-purple-50 data-[selected=true]:text-[#7C3AED] hover:bg-slate-50 cursor-pointer flex items-center justify-between"
-                    >
-                      {item.label}
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select>
-
-            {/* Delivery Fee Dropdown Component */}
-            {/* <Select
-              placeholder="Delivery Fee"
-              selectedKeys={new Set([currentFee])}
-              onSelectionChange={(keys) => {
-                const arr = Array.from(keys);
-                if (arr.length > 0) {
-                  updateQueryParams("fee", arr[0].toString());
-                }
-              }}
-              className="w-full sm:w-[200px]"
-              aria-label="Filter Delivery Fee"
-            >
-              <Select.Trigger className="h-12 px-4 border-slate-200 rounded-2xl bg-white text-sm font-bold text-gray-700 shadow-sm hover:border-slate-300 transition-colors">
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover className="rounded-2xl border border-slate-100 shadow-xl p-1 bg-white">
-                <ListBox>
-                  {feeOptions.map((item) => (
-                    <ListBox.Item
-                      key={item.id}
-                      id={item.id}
-                      textValue={item.label}
-                      className="rounded-xl px-3 py-2 text-sm font-semibold transition-colors data-[selected=true]:bg-blue-50 data-[selected=true]:text-[#2563EB] hover:bg-slate-50 cursor-pointer flex items-center justify-between"
-                    >
-                      {item.label}
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select> */}
-
-          </div>
         </div>
 
         {/* Row 2: Premium Horizontal Scrolling Quick-Chips Carousel */}
@@ -204,7 +123,7 @@ const FilterBooks = () => {
             {categoryOptions.map((cat) => {
               const isSelected = currentCategory === cat.id;
               return (
-                <button
+                <Button
                   key={cat.id}
                   onClick={() => updateQueryParams("category", cat.id)}
                   className={`h-9 px-4 rounded-full text-xs font-bold transition-all shrink-0 whitespace-nowrap border ${
@@ -214,7 +133,7 @@ const FilterBooks = () => {
                   }`}
                 >
                   {cat.label}
-                </button>
+                </Button>
               );
             })}
           </div>
