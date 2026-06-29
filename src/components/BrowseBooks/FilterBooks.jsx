@@ -65,7 +65,7 @@ const FilterBooks = () => {
   const hasActiveFilters = searchValue || currentCategory !== "all" || currentFee !== "all";
 
   return (
-    <div className="max-w-[1400px] mx-auto w-full mt-30 mb-8 px-1">
+    <div className="max-w-7xl mx-auto w-full mt-30 mb-8 px-1">
       
       {/* 🌟 Dynamic Header Section with Glass-morphic Accents */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -95,7 +95,7 @@ const FilterBooks = () => {
       </div>
 
       {/* 🔮 Main Luxury Glass-morphic Container Wrapper */}
-      <div className="w-full bg-white/80 backdrop-blur-md rounded-2xl border border-purple-100/50 p-4 md:p-5 space-y-5 shadow-[0_10px_30px_rgba(124,58,237,0.01)]">
+      <div className="w-full bg-white/40 backdrop-blur-md rounded-2xl border-3 border-purple-200 p-4 md:p-5 space-y-5 shadow-[0_10px_30px_rgba(124,58,237,0.01)]">
         
         {/* Row 1: High-Performance Custom Search Input */}
         <div className="flex flex-col lg:flex-row gap-4">
