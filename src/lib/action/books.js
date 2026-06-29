@@ -12,11 +12,7 @@ export const PostBook = async (data) => {
   const token  = tokenData?.token
   console.log(token);
 
-  const response = await serverMutation("/api/books", data ,"POST" ,token);
-  console.log(" after post book ", response);
-  if (response.insertedId) {
-    redirect("/dashboard/librarian/inventory");
-  }
+
   return response;
 };
 // a librarian can delete books
