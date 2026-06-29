@@ -245,7 +245,7 @@ const DashboardSidebar = () => {
 
           <button
             type="button"
-            onClick={async () => await authClient.signOut(router.push("/auth/signin")) }
+            onClick={async () => await authClient.signOut(router.push("/")) }
             className="w-full h-11 px-4 rounded-xl flex items-center gap-3 text-[13px] font-semibold tracking-wide uppercase text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 transition-all text-left bg-transparent border-none cursor-pointer"
           >
             <FiLogOut size={17} />

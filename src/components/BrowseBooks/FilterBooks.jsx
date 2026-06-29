@@ -65,7 +65,7 @@ const FilterBooks = () => {
   const hasActiveFilters = searchValue || currentCategory !== "all" || currentFee !== "all";
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-10 mb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-30 mb-10">
       
       {/* Dynamic Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
