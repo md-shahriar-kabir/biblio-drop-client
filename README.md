@@ -1,8 +1,8 @@
 # 📖 BiblioDrop — Online Book Delivery Management System
 
-🚀 **Live Site URL:** [Click Here to View Live Demo](https://your-live-link.com)  
-📦 **Client Repository:** [GitHub Frontend](https://github.com/your-username/bibliodrop-client)  
-🖥️ **Server Repository:** [GitHub Backend](https://github.com/your-username/bibliodrop-server)  
+🚀 **Live Site URL:** [Click Here to View Live Demo](https://biblio-drop-client-sage.vercel.app/)  
+📦 **Client Repository:** [GitHub Frontend](https://github.com/md-shahriar-kabir/biblio-drop-client)  
+🖥️ **Server Repository:** [GitHub Backend](https://github.com/md-shahriar-kabir/biblio-drop-server)  
 
 ---
 
