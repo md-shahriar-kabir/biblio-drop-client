@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { FiBook, FiDollarSign, FiClock, FiTrendingUp, FiActivity, FiPieChart, FiCalendar } from "react-icons/fi";
+import { FiBook, FiDollarSign, FiClock, FiActivity, FiPieChart, FiCalendar, FiCpu } from "react-icons/fi";
 import {
   BarChart,
   Bar,
@@ -46,12 +46,10 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
     earnings: Number(categoryEarnings[key].toFixed(2)),
   }));
 
-  // ৩. NEW DYNAMIC CHART: Monthly Earnings Timeline (Area Chart)
-  // এটি আপনার অর্ডারের 'createdAt' বা তারিখ থেকে মাস নিয়ে ডাইনামিকালি রেভিনিউ ট্রেন্ড লাইন তৈরি করবে
+  // ৩. Monthly Earnings Timeline (Area Chart)
   const monthlyDataMap = {};
   orders.forEach((order) => {
     if (order.orderStatus?.toLowerCase() === "delivered") {
-      // যদি createdAt ডেট থাকে তবে সেটা ব্যবহার করবে, না থাকলে কারেন্ট মাসের নাম দেখাবে
       const dateObj = order.createdAt ? new Date(order.createdAt) : new Date();
       const monthName = dateObj.toLocaleString("default", { month: "short" });
       
@@ -59,7 +57,6 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
     }
   });
 
-  // যদি কোনো ডেটা না থাকে তবে গ্রাফ খালি না দেখিয়ে একটি সুন্দর ডিফল্ট ডাইনামিক স্টেট সেট করবে
   const areaChartData = Object.keys(monthlyDataMap).length > 0 
     ? Object.keys(monthlyDataMap).map(month => ({ month, revenue: Number(monthlyDataMap[month].toFixed(2)) }))
     : [{ month: new Date().toLocaleString("default", { month: "short" }), revenue: Number(totalEarnings) }];
@@ -76,7 +73,7 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
     value: statusCount[key],
   }));
 
-  const PIE_COLORS = ["#F59E0B", "#2563EB", "#7C3AED", "#EF4444"]; // Pending, Dispatched, Delivered, Cancelled
+  const PIE_COLORS = ["#F59E0B", "#2563EB", "#7C3AED", "#EF4444"];
 
   // ৫. Mini-list: Most Requested Books
   const bookRequests = {};
@@ -103,12 +100,50 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
     .slice(0, 4);
 
   return (
-    // পেছনের ব্যাকগ্রাউন্ডে হালকা পার্পল ব্লেন্ডেড আভা (bg-purple-50/40) এবং গ্লাস-মরফিজম ভাইব দেওয়া হয়েছে
     <div className="space-y-8 w-full max-w-[1400px] mx-auto p-4 md:p-6 bg-gradient-to-tr from-purple-50/30 via-transparent to-indigo-50/20 rounded-3xl animate-fadeIn">
       
+      {/* 🔮 --- BRAND NEW LIBRARIAN HERO BANNER (image_bbc79b.png এর নতুন রূপ) --- */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1e1b4b] via-[#0D3B66] to-[#0A2540] p-6 md:p-8 text-white shadow-[0_20px_50px_rgba(13,59,102,0.15)]">
+        {/* গ্লোয়িং অ্যাবস্ট্রাক্ট ব্যাকগ্রাউন্ড ব্যাকড্রপ */}
+        <div className="absolute -right-10 -top-20 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
+        <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            {/* মিনিম্যালিস্টিক এলিট ব্যাজ */}
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/20 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-indigo-300 border border-indigo-500/30">
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" /> 
+              Knowledge Asset Manager
+            </span>
+            
+            {/* ডাইনামিক বোল্ড হেডার */}
+            <h1 className="mt-3 text-2xl md:text-3xl font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
+              Librarian Workspace & Repository Metrics
+            </h1>
+            
+            {/* ক্রিস্পি রিফাইনড কন্টেন্ট */}
+            <p className="mt-1.5 text-xs md:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
+              Monitor cloud book distributions, tracks active categorical earnings timeline, and efficiently manage user lending requests.
+            </p>
+          </div>
+          
+          {/* লাইভ ক্যাটালগ ট্র্যাক বক্স */}
+          <div className="flex items-center gap-3.5 bg-white/5 backdrop-blur-xl rounded-2xl p-3.5 border border-white/10 self-start md:self-auto shadow-inner">
+            <div className="w-9 h-9 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-300 border border-purple-500/30">
+              <FiCpu className="animate-spin [animation-duration:8s]" size={18} />
+            </div>
+            <div className="text-left">
+              <p className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Catalog Health</p>
+              <p className="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Synced & Active
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* --- QUICK STATS CARDS --- */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
         {/* Card 1: Total Books */}
         <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-purple-100 shadow-[0_10px_30px_rgba(124,58,237,0.03)] flex items-center justify-between relative overflow-hidden">
           <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-600/5 rounded-full blur-xl" />
@@ -155,10 +190,9 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
       {/* --- GRID CHARTS SECTION --- */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Left Columns: Charts Section (Takes 2/3 space) */}
+        {/* Left Columns: Charts Section */}
         <div className="lg:col-span-2 space-y-6">
-          
-          {/* NEW GRAPH: Dynamic Revenue Timeline Area Chart */}
+          {/* Revenue Growth Timeline */}
           <div className="bg-white p-6 rounded-3xl border border-purple-100/60 shadow-[0_15px_40px_rgba(124,58,237,0.02)]">
             <div className="flex items-center gap-2 mb-6 border-b border-purple-50 pb-4">
               <FiCalendar className="text-purple-600" size={16} />
@@ -176,17 +210,14 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
                   <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#f1f5f9" />
                   <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 600 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                  <Tooltip 
-                    contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }}
-                    formatter={(value) => [`$${value}`, "Revenue Generated"]}
-                  />
+                  <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }} formatter={(value) => [`$${value}`, "Revenue Generated"]} />
                   <Area type="monotone" dataKey="revenue" stroke="#7C3AED" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          {/* Chart 2: Category Earnings */}
+          {/* Category Earnings */}
           <div className="bg-white p-6 rounded-3xl border border-purple-100/60 shadow-[0_15px_40px_rgba(124,58,237,0.02)]">
             <div className="flex items-center gap-2 mb-6 border-b border-purple-50 pb-4">
               <div className="w-2.5 h-2.5 rounded-full bg-purple-600" />
@@ -198,23 +229,17 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
                   <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#f1f5f9" />
                   <XAxis dataKey="name" tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 600 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                  <Tooltip 
-                    cursor={{ fill: "rgba(124, 58, 237, 0.02)" }}
-                    contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }}
-                    formatter={(value) => [`$${value}`, "Revenue"]}
-                  />
+                  <Tooltip cursor={{ fill: "rgba(124, 58, 237, 0.02)" }} contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }} formatter={(value) => [`$${value}`, "Revenue"]} />
                   <Bar dataKey="earnings" fill="#7C3AED" radius={[6, 6, 0, 0]} barSize={32} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
-
         </div>
 
-        {/* Right Column (Takes 1/3 space) */}
+        {/* Right Column */}
         <div className="lg:col-span-1 space-y-6 flex flex-col h-full">
-          
-          {/* Chart 3: Pipeline Distribution (Pie Chart Moved to Right Sidebar for unique look) */}
+          {/* Distribution Flow Pipeline */}
           <div className="bg-white p-6 rounded-3xl border border-purple-100/60 shadow-[0_15px_40px_rgba(124,58,237,0.02)]">
             <div className="flex items-center gap-2 mb-4 border-b border-purple-50 pb-3">
               <FiPieChart className="text-purple-600" size={16} />
@@ -258,7 +283,7 @@ const LibrarianOverview = ({ orders = [], books = [] }) => {
             </div>
           </div>
 
-          {/* Mini-list: Velocity Rankings */}
+          {/* Velocity Rankings */}
           <div className="bg-white p-6 rounded-3xl border border-purple-100/60 shadow-[0_15px_40px_rgba(124,58,237,0.02)] flex-grow">
             <div className="flex items-center justify-between mb-4 border-b border-purple-50 pb-3">
               <h3 className="text-base font-black text-[#0D3B66] tracking-tight flex items-center gap-1.5">
