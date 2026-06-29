@@ -44,7 +44,7 @@ const BooksContainer = ({ books }) => {
   }
 
   return (
-    <div className="w-full py-4 px-20">
+    <div className="w-full py-4 px-2">
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
         variants={containerVariants}
