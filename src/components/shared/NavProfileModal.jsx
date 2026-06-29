@@ -77,7 +77,7 @@ const ProfileModal = ({ user }) => {
 
               <button
                 onClick={async () =>
-                  await authClient.signOut(router.push("/auth/signin"))
+                  await authClient.signOut(router.push("/"))
                 }
                 className="w-full h-10 px-3 rounded-xl flex items-center gap-3 text-rose-600 hover:bg-rose-50 transition-colors text-[13px] font-black group border-none text-left bg-transparent cursor-pointer"
               >

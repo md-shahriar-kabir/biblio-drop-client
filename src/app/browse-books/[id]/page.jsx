@@ -280,7 +280,7 @@ const BookDetailsPage = async ({ params }) => {
                   className="bg-white border-slate-200 text-slate-700 hover:bg-slate-50 font-bold px-7 h-12 rounded-xl flex items-center gap-2 shadow-sm transition-all"
                 >
                   <FiBookmark size={16} className="text-slate-400" />
-                  Save for Later
+                  Wish List
                 </Button>
               )}
             </div>

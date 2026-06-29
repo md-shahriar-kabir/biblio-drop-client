@@ -69,7 +69,7 @@ const HeroSlider = () => {
         className="w-full h-full"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={slide.id} className="relative w-full h-full overflow-hidden">
+          <SwiperSlide key={slide.id} className="relative mt-6 w-full h-full overflow-hidden">
             
             {/* Image Layer */}
             <div

@@ -15,9 +15,6 @@ const DashboardLibrarian = async () => {
     getCurrentLibrarianOrderedBook(user?.id),
   ]);
 
-  // console.log("Orders:", orderedBook);
-  // console.log("Books:", books);
-
   return (
     <div className="p-4 sm:p-6 w-full max-w-7xl mx-auto">
 
