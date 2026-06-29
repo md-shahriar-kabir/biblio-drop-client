@@ -42,9 +42,9 @@ export default async function Success({ searchParams }) {
         <div className="max-w-lg w-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
           
           {/* Header Section */}
-          <div className="bg-[#0A2540] px-8 py-10 flex flex-col items-center text-center">
+          <div className="bg-purple-900 px-8 py-10 flex flex-col items-center text-center">
             <div className="w-20 h-20 bg-emerald-400/10 rounded-full flex items-center justify-center mb-6 border border-emerald-400/20 shadow-[0_0_40px_rgba(52,211,153,0.2)]">
-              <FiCheckCircle className="text-emerald-400 size-10" strokeWidth={1.5} />
+              <FiCheckCircle className="text-purple-400 size-10" strokeWidth={1.5} />
             </div>
             <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">
               Payment Successful!
@@ -91,8 +91,8 @@ export default async function Success({ searchParams }) {
               {/* Status */}
               <div className="flex justify-between items-center">
                 <span className="text-slate-500 font-medium">Order Status</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-100 uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-purple-700 text-xs font-bold border border-emerald-100 uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
                   Pending Delivery
                 </span>
               </div>
@@ -105,14 +105,14 @@ export default async function Success({ searchParams }) {
             {/* Action Buttons - Fixed the "as={Link}" Error */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/dashboard/user/delivery-history" className="flex-1">
-                <Button className="w-full bg-[#0A2540] hover:bg-[#153e66] text-white font-semibold h-12 rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm">
+                <Button className="w-full bg-purple-800 hover:bg-purple-600 text-white font-semibold h-12 rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm">
                   <FiPackage size={18} />
                   View Order
                 </Button>
               </Link>
 
               <Link href="/" className="flex-1">
-                <Button variant="bordered" className="w-full bg-white border-slate-300 text-[#0A2540] hover:bg-slate-50 font-semibold h-12 rounded-lg flex items-center justify-center gap-2 transition-all">
+                <Button variant="bordered" className="w-full bg-white border border-outline text-[#0A2540] hover:bg-purple-300 font-semibold h-12 rounded-lg flex items-center justify-center gap-2 transition-all">
                   <FiHome size={18} />
                   Return Home
                 </Button>

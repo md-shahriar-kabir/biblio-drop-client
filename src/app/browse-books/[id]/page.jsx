@@ -240,7 +240,7 @@ const BookDetailsPage = async ({ params }) => {
                     <Button
                       type="submit"
                       size="lg"
-                      className="bg-[#FA5D39] hover:bg-[#E54823] text-white font-bold px-8 h-12 rounded-xl flex items-center gap-2.5 transition-all shadow-md shadow-orange-500/10"
+                      className="bg-purple-800 hover:bg-purple-600 text-white font-bold px-8 h-12 rounded-xl flex items-center gap-2.5 transition-all shadow-md shadow-orange-500/10"
                     >
                       <BsTruck size={16} />
                       Request Delivery
@@ -306,7 +306,7 @@ const BookDetailsPage = async ({ params }) => {
             {isDelivered && (
               <div className="border-t border-slate-200/80 pt-8 mt-4">
                 <h3 className="text-lg font-black text-slate-900 mb-4 tracking-tight">
-                  Share Your Thoughts
+                  Leave a Review
                 </h3>
                 <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
                   <UserReviewForm book={book} user={user}/>

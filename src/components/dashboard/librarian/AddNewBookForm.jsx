@@ -262,7 +262,7 @@ const AddNewBookForm = (userId) => {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
                 />
                 <div
-                  className={`w-12 h-12 bg-[#FFF0ED] text-[#D34A26] rounded-full flex items-center justify-center mb-3 transition-transform duration-300 ${!isUploading && "group-hover:scale-110"}`}
+                  className={`w-12 h-12 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center mb-3 transition-transform duration-300 ${!isUploading && "group-hover:scale-110"}`}
                 >
                   <FiUploadCloud
                     size={24}
@@ -288,7 +288,7 @@ const AddNewBookForm = (userId) => {
               <Button
                 type="submit"
                 isDisabled={isSubmitting || isUploading}
-                className="w-full md:w-auto px-8 py-6 bg-[#F46036] hover:bg-[#D34A26] text-white font-bold text-[13px] uppercase tracking-wider rounded-lg flex items-center gap-2 shadow-md transition-all duration-200"
+                className="w-full md:w-auto px-8 py-6 bg-purple-700 hover:bg-purple-600 text-white font-bold text-[13px] uppercase tracking-wider rounded-lg flex items-center gap-2 shadow-md transition-all duration-200"
               >
                 {!isSubmitting && !isUploading && <FiSend size={18} />}
                 {isSubmitting
@@ -300,37 +300,6 @@ const AddNewBookForm = (userId) => {
             </div>
           </Fieldset>
         </Form>
-      </div>
-
-      {/* BOTTOM INFO CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-[#0A2540] rounded-xl p-5 flex items-start gap-4 shadow-[0_10px_30px_rgba(10,37,64,0.1)]">
-          <div className="mt-0.5">
-            <FiShield size={26} className="text-blue-300" strokeWidth={2} />
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-[14px] mb-1">
-              Quality Check
-            </h4>
-            <p className="text-blue-200/70 text-[12px] leading-relaxed font-semibold">
-              Our curators review all listings within 24 hours.
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl p-5 flex items-start gap-4 border border-gray-100 shadow-[0_10px_30px_rgba(13,59,102,0.03)]">
-          <div className="mt-0.5">
-            <FiTruck size={26} className="text-slate-400" strokeWidth={2} />
-          </div>
-          <div>
-            <h4 className="text-[#0D3B66] font-bold text-[14px] mb-1">
-              Shipping Tiers
-            </h4>
-            <p className="text-slate-500 text-[12px] leading-relaxed font-semibold">
-              Calculated based on weight and destination distance.
-            </p>
-          </div>
-        </div>
       </div>
     </motion.div>
   );

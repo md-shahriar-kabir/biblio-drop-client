@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BookDrop | Discover & Review Books",
+  title: "Biblio Drop | Explore Your Online Library",
   description: "A modern platform to discover great books, read authors' works, and share your genuine reviews with the community.",
-  keywords: ["books", "library", "book reviews", "reading", "BookDrop"],
+  keywords: ["books", "library", "book reviews", "reading", "bibliodrop"],
 };
 
 export default function RootLayout({ children }) {

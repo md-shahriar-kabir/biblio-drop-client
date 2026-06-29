@@ -116,7 +116,7 @@ const DeliveryTable = ({ orders }) => {
                           updateOrderStatusById(order?._id, "dispatched")
                         }
                         disabled={loadingId === order._id}
-                        className="bg-[#0A2540] hover:bg-[#103A62] text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 ml-auto"
+                        className="bg-purple-900 hover:bg-purple-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 ml-auto"
                       >
                         {loadingId === order._id ? "Updating..." : "Dispatch"}
                       </button>
@@ -128,7 +128,7 @@ const DeliveryTable = ({ orders }) => {
                           updateOrderStatusById(order._id, "delivered")
                         }
                         disabled={loadingId === order._id}
-                        className="bg-[#FA5D39] hover:bg-[#E54823] text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 ml-auto"
+                        className="bg-purple-900 hover:bg-purple-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 ml-auto"
                       >
                         {loadingId === order._id ? "Updating..." : "Deliver"}
                       </button>

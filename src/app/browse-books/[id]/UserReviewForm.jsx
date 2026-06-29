@@ -82,7 +82,7 @@ const UserReviewForm = ({ user, book }) => {
       </div>
       <Button
         type="submit"
-        className="bg-[#0A2540] hover:bg-[#103A62] text-white font-bold px-8 h-11 rounded-lg self-start shadow-sm transition-colors"
+        className="bg-purple-800 hover:bg-purple-600 text-white font-bold px-8 h-11 rounded-lg self-start shadow-sm transition-colors"
       >
         Submit Review
       </Button>

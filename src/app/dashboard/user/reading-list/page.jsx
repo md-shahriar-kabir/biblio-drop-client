@@ -17,8 +17,7 @@ console.log(myOrder)
           My Reading List
         </h1>
         <p className="text-[#475569] text-[15px]">
-          Curating your intellectual journey through BookDrop Enterprise
-          Logistics.
+         Empowering Your Reading Journey with Biblio Drop Enterprise Logistics
         </p>
       </div>
 

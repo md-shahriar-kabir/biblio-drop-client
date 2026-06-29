@@ -26,7 +26,7 @@ const NavBar = () => {
     return null;
   }
 
-  // BookDrop Navigation Routes
+  // Navigation Routes
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Browse Books", path: "/browse-books" },
