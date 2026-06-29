@@ -1,14 +1,18 @@
-/* Swiper Pagination Customization */
+/* --- HeroSlider.css --- */
+
+/* default bullets styling */
 .swiper-pagination-bullet {
-  background-color: rgb(255, 255, 255) !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
   opacity: 1 !important;
-  width: 10px !important;
-  height: 10px !important;
-  transition: all 0.3s ease-in-out !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+/* Active bullet transition to pill shape */
 .swiper-pagination-bullet-active {
-  background-color: #8c04f4 !important;
-  width: 30px !important;
-  border-radius: 8px !important;
+  background-color: #7C3AED !important; /* আপনার ব্র্যান্ড পার্পল কালার */
+  width: 24px !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
 }
